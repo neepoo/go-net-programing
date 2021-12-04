@@ -5,6 +5,7 @@ import (
 	"log"
 	"net"
 	"os/user"
+	"strconv"
 )
 
 func Allowed(conn *net.UnixConn, groups map[string]struct{}) bool {
@@ -30,7 +31,7 @@ func Allowed(conn *net.UnixConn, groups map[string]struct{}) bool {
 		}
 		break
 	}
-	u, err := user.LookupId(string(ucred.Uid))
+	u, err := user.LookupId(strconv.Itoa(int(ucred.Uid)))
 	if err != nil {
 		log.Println(err)
 		return false
